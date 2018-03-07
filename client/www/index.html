@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements. See the NOTICE file distributed with this work for additional information regarding copyright ownership. The ASF licenses this file to you under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. -->
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <!--<meta name="viewport"-->
+    <!--content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.4.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/index.css"/>
+    <link rel="stylesheet" type="text/css" href="css/mobiscroll.custom-2.14.0.min.css"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <style type="text/css">
+        .ui-collapsible-set {
+            margin: 0;
+        }
+    </style>
+    <title>铁路试验信息管理系统</title>
+</head>
+<body>
+<div data-role="page" id="pageHome">
+    <div data-role="header" data-position="fixed" data-theme="b" class="uui-bar-b" data-tap-toggle="false">
+        <h1 class="line-name">当前线路</h1>
+        <a href="#pageLines" data-transition="flip" data-icon="bars"
+           class="switchLine ui-btn-right ">切换</a>
+    </div>
+    <div data-role="content" class="ui-body-d ui-content">
+        <div class="ui-grid-b">
+            <div class="ui-block-a">
+                <a onclick="changeToReport(4)" href="#pageReportOfWeek" class="btn-menu" data-transition="slide"
+                   id="mainReportWeek">
+                    <img src="img/reportOfWeek.png"/>
+                    <br/>
+                    周报</a>
+            </div>
+
+            <div class=" ui-block-b ">
+                <a onclick="changeToReport(5)" href="#pageReportOfWeek" id="menuReportOfMonth" class="btn-menu"
+                   data-transition="slide">
+                    <img src="img/reportOfMonth.png"/>
+                    <br/>
+                    月报
+                </a>
+            </div>
+
+            <div class="ui-block-c">
+                <a href="#pageMsg" id="menuMsg" class="btn-menu" data-transition="slide">
+                    <img src="img/errorMsg.png"/>
+                    <br/>
+                    报警信息</a>
+            </div>
+        </div>
+
+        <div class="ui-grid-b">
+            <div class="ui-block-a">
+                <a href="#" id="menuState" class="btn-menu">
+                    <img src="img/baseInfo.png"/>
+                    <br/>
+                    基本情况
+                </a>
+            </div>
+
+            <div class="ui-block-b ">
+                <a href="#pageMembers" class="btn-menu" data-transition="slide">
+                    <img src="img/userInfo.png"/>
+                    <br/>
+                    人员信息</a>
+            </div>
+
+            <div class="ui-block-c">
+                <a href="#pageDevices" class="btn-menu" data-transition="slide">
+                    <img src="img/deviceInfo.png"/>
+                    <br/>
+                    设备信息</a>
+            </div>
+        </div>
+
+        <div class="ui-grid-b">
+            <div class="ui-block-a">
+                <a href="#pageStatistics" class="btn-menu" data-transition="slide">
+                    <img src="img/docStatistics.png"/>
+                    <br/>
+                    资料统计
+                </a>
+            </div>
+            <div class="ui-block-b">
+                <a href="#" class="btn-menu" id="buttonStadium" data-transition="slide">
+                    <img src="img/list.png"/>
+                    <br/>
+                    待做事项
+                </a>
+            </div>
+        </div>
+    </div>
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+        <div data-role="navbar">
+            <ul class="footernavbar">
+                <li><a href="#" data-icon="grid" class="ui-state-persist uui-btn-active">功能</a></li>
+                <li><a href="#pageMine" data-icon="star" data-transition="none">我的</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div data-role="page" id="pageMine">
+    <div data-role="header" data-position="fixed" data-theme="b" class="uui-bar-b" data-tap-toggle="false">
+        <h1 class="line-name">当前线路</h1>
+    </div>
+    <div class="ui-body-d ui-content">
+        <div class="ui-grid-b">
+            <div class="ui-block-a">
+                <a href="#pageResetPassword" class="btn-menu" data-transition="slide">
+                    <img src="img/changePwd.png"/>
+                    <br/>
+                    修改密码
+                </a>
+            </div>
+
+            <div class="ui-block-b">
+                <a href="#pageAbout" class="btn-menu" data-transition="slide">
+                    <img src="img/about.png"/>
+                    <br/>
+                    关于金舟
+                </a>
+            </div>
+
+            <div class="ui-block-c">
+                <a href="#pageFavorite" class="btn-menu" data-transition="slide">
+                    <img src="img/storeMenu.png"/>
+                    <br/>
+                    收藏夹</a>
+            </div>
+        </div>
+
+        <div class="ui-grid-b">
+            <div class="ui-block-a">
+                <a href="#pageLogout" class="btn-menu" data-transition="slide">
+                    <img src="img/logOut.png"/>
+                    <br/>
+                    退出登录</a>
+            </div>
+            <div class="ui-block-b ">
+                <a href="#pageTinyTip" class="btn-menu" id="menuTinyTip" data-transition="slide">
+                    <img src="img/tinyTip.png"/>
+                    <br/>
+                    温馨提示
+                </a>
+            </div>
+
+            <div class="ui-block-c">
+                <a href="javascript:callService()" class="btn-menu">
+                    <img src="img/contact.png"/>
+                    <br/>
+                    联系客服
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+        <div data-role="navbar">
+            <ul class="footernavbar">
+                <li><a href="#pageHome" data-icon="grid" data-transition="none">功能</a></li>
+                <li><a href="#" data-icon="star" class="ui-state-persist uui-btn-active">我的</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div data-role="page" id="pageReportOfWeek">
+    <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b" class="uui-bar-b">
+        <a href="#" data-rel="back" data-transition="slide"
+           class="ui-btn ui-shadow ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">返回</a>
+
+        <h1 id="reportListTitle">周报、月报</h1>
+    </div>
+    <div data-role="body">
+        <ul data-role="listview" data-inset="true" id="reportList">
+            <li>
+                <a href="#pDetail" data-transition="slide" id="report-week">
+                </a>
+                当前没有数据
+            </li>
+        </ul>
+    </div>
+</div>
+<div data-role="page" id="pageReportDetail">
+    <div data-role="header" data-position="fixed" data-theme="b" class="uui-bar-b">
+        <a href="#" data-rel="back" data-transition="slide"
+           class="ui-btn ui-shadow ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">返回</a>
+
+        <h1 id="reportDetailTitle">XXXX年XX月XX日-XXXX年XX月XX日</h1>
+    </div>
+    <div data-role="body">
+        <div data-role="listview" id="reportDetailContent">
+        </div>
+    </div>
+</div>
+<div data-role="page" id="pageReportOfMonth">
+    <div data-role="header" data-position="fixed" data-theme="b" class="uui-bar-b">
+        <a href="#" data-rel="back" data-transition="slide"
+           class="ui-btn ui-shadow ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">返回</a>
+
+        <h1>月报</h1>
+    </div>
+    <div class="ui-body-d ui-content">
+        aaaa
+    </div>
+</div>
+<div data-role="page" id="pageLogout">
+    <div class="ui-body-d ui-content">
+        <p>
+            确定要退出登录吗?
+        </p>
+
+        <div data-role="controlgroup" data-type="horizontal" style="text-align: center; width:100%">
+            <a href="#" class=" ui-btn  ui-btn-b ui-mini" data-rel="back" data-role="button">返回</a>
+            <a href="#" id="sigoutButton" class=" ui-btn  ui-btn-b  ui-mini" data-role="button">继续退出</a>
+        </div>
+    </div>
+</div>
+<div data-role="page" id="pageLogin">
+    <div data-role="header">
+        <h2>铁路试验信息系统</h2>
+    </div>
+    <div role="main" class='ui-content'>
+        <input type="text" name="name" id="name" value="" data-clear-btn="true" data-mini="true" placeholder="姓名/手机号码"/>
+        <input type="password" name="password" id="password" value="" data-clear-btn="true" autocomplete="off"
+               data-mini="true" placeholder="密码"/>
+
+        <div data-role="controlgroup" data-type="horizontal" style="text-align: center; width:100%">
+            <a href="#" id="passwordButton" class=" ui-btn  ui-btn-b ui-mini" data-role="button">获取动态密码</a>
+            <a href="#" id="loginButton" class=" ui-btn  ui-btn-b  ui-mini" data-role="button">&nbsp;登 录&nbsp;</a>
+        </div>
+        <br/>
+        <br/>
+
+        <div style="width:100%; text-align: center; font-size: 0.6em">
+            北京金舟神创科技发展有限公司
+        </div>
+    </div>h
+</div>
+<div data-role="page" id="pageMsg">
+    <div data-role="header" data-position="fixed" data-theme="b" class="uui-bar-b" data-tap-toggle="false">
+        <a href="#" data-rel="back" data-transition="slide" data-inset="false"
+           class="ui-btn ui-shadow ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">返回</a>
+
+        <h1>报警信息</h1>
+
+        <div class="header-tools">
+            <input data-type="search" name="filterMessage" id="filterMessage" value="" placeholder="查找"/>
+        </div>
+    </div>
+    <div data-role="body">
+        <ul id="listMessage" data-role="listview" data-filter="true" data-input="#filterMessage">
+            <li class="ui-btn" id="buttonLoadMessage">
+                加载更多
+            </li>
+        </ul>
+    </div>
+
+</div>
+<div data-role="page" id="pageFavorite">
+    <div data-role="header" data-position="fixed" data-theme="b" class="uui-bar-b" data-tap-toggle="false">
+        <a href="#" data-rel="back" data-transition="slide"
+           class="ui-btn ui-shadow ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">返回</a>
+
+        <h1>收藏夹</h1>
+
+        <div class="header-tools">
+            <input data-type="search" id="filterFavorite" value="" placeholder="查找"/>
+        </div>
+    </div>
+
+    <div data-role="body">
+
+        <ul id="listFavorite" data-role="listview" data-filter="true" data-input="#filterFavorite">
+            <li class="ui-btn" id="buttonLoadFavorite">
+                正在加载
+            </li>
+        </ul>
+    </div>
+</div>
+<div data-role="page" id="pageLines">
+    <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b" class="uui-bar-b"
+         data-tap-toggle="false">
+        <h1>请选择线路</h1>
+        <a href="#" data-icon="arrow-l" data-transition="flip" data-rel="back" data-iconpos="notext">返回</a>
+
+        <div class="header-tools">
+              <input id="filterLines" data-type="search" placeholder="查找"/>
+        </div>
+    </div>
+    <div data-role="body">
+        <ul data-role="listview" id="listLines">
+
+        </ul>
+    </div>
+</div>
+<div data-role="page" id="pageStatistics">
+    <div data-role="header" data-position="fixed" data-theme="b" class="uui-bar-b" data-tap-toggle="false">
+        <a href="#" data-rel="back" data-transition="slide"
+           class="ui-btn ui-shadow ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">返回</a>
+
+        <h1>资料统计</h1>
+
+        <div>
+        </div>
+    </div>
+    <div data-role="body">
+        <ul data-role="listview" id="statisticsList">
+                
+        </ul>
+    </div>
+</div>
+<div data-role="page" id="detailStatistics">
+    <div data-role="header" data-position="fixed" data-theme="b" class="uui-bar-b" data-tap-toggle="false">
+        <a href="#" data-rel="back" data-transition="slide"
+           class="ui-btn ui-shadow ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">返回
+        </a>
+
+        <h1 id="title-statistics">资料统计</h1>
+
+        <a href="#" id="filterStatistics" data-transition="flip" data-icon="calendar"
+           class="switchLine ui-btn-right ">过滤</a>
+
+        <div class="header-tools" style="display: none" id="regionTimeStatistics">
+            <input type="date" data-role="datebox" name="somedate"
+                   data-options='{"mode": "datebox", "overrideDateFormat": "%m/%d/%Y"}'
+                   id="dateStatisticsStart" placeholder="选择开始时间"/>
+            <input type="date" data-role="datebox" name="somedate"
+                   data-options='{"mode": "datebox", "overrideDateFormat": "%m/%d/%Y"}'
+                   id="dateStatisticsEnd" placeholder="选择结束时间"/>
+        </div>
+    </div>
+    <div data-role="body" id="bodyDetailStatistics">
+    </div>
+</div>
+<div data-role="page" id="pageMembers">
+    <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b" class="uui-bar-b"
+         data-tap-toggle="false">
+        <a href="#" data-rel="back" data-transition="slide"
+           class="ui-btn ui-shadow ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">
+            返回
+        </a>
+
+        <h1>人员信息</h1>
+
+        <div class="header-tools">
+              <input id="filterMember" data-type="search" placeholder="查找"/>
+        </div>
+    </div>
+    <div data-role="body">
+        <div data-role="collapsible-set" data-inset="false" id="memberList" data-filter="true"
+             data-input="#filterMember" data-children="> div, > div div ul li">
+            <div data-role="collapsible">
+                <h2>SG1标 中铁二十局 4人</h2>
+                <ul data-role="listview" data-filter="true"
+                    data-inset="true">
+                    <li data-role="list-divider" data-theme="b">
+                        中心试验室 2人
+                    </li>
+                    <li style="vertical-align: middle">
+                        <span data-inline="true" class="list-label">
+                            <p>
+                                <strong>张三</strong>
+                                <br/>
+                                <span>电话 132999932234</span>
+                            </p>
+                        </span>
+                        <button data-inline="true"
+                                class="ui-btn-right ui-icon-phone ui-btn ui-shadow ui-corner-all ui-btn-icon-notext"
+                                onclick=" window.open('tel:13239109398', '_system')">
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div data-role="page" id="pageDevices">
+    <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b" class="uui-bar-b"
+         data-tap-toggle="false">
+        <a href="#" data-rel="back" data-transition="slide"
+           class="ui-btn ui-shadow ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">返回</a>
+
+        <h1>设备信息</h1>
+
+        <!--<div class="ui-grid-a">-->
+        <!--<div class="ui-block-a" style="padding: 0 .5em">-->
+        <!--<div>-->
+        <!--<input  type="date" data-role="datebox" name="startDateOfStatistics" id="startDateOfStatistics"-->
+        <!--data-options='{"mode": "slidebox", "overrideDateFormat": "yyyy/MM/dd"}'/>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="ui-block-b" style="padding: 0 .5em ">-->
+        <!--<input  type="date" data-role="datebox" name="endDateOfStatistics" id="endDateOfStatistics"-->
+        <!--data-options='{"mode": "slidebox", "overrideDateFormat": "yyyy/MM/dd"}'/>-->
+        <!--</div>-->
+        <!--</div>-->
+    </div>
+    <div data-role="body">
+        <div data-role="collapsible-set" data-inset="false" data-theme="a" id="deviceList">
+            <div data-role="collapsible" data-theme="b">
+                <h2>SG1标 中铁二十局 4人</h2>
+                <ul data-role="listview" data-filter="true"
+                    data-inset="true">
+                    <li data-role="list-divider" data-theme="b">
+                        中心试验室 12台
+                    </li>
+                    <li style="vertical-align: middle">
+                        <span data-inline="true" class="list-label">
+                            <p>
+                                <strong>张三</strong>
+                                <br/>
+                                <span>电话 132999932234</span>
+                            </p>
+                        </span>
+                        <button data-inline="true"
+                                class="ui-btn-right ui-icon-phone ui-btn ui-shadow ui-corner-all ui-btn-icon-notext"
+                                onclick=" window.open('tel:13239109398', '_system')">
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div data-role="page" id="pageState1">
+    <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b" class="uui-bar-b"
+         data-tap-toggle="false">
+        <a href="#" data-rel="back" data-transition="slide"
+           class="ui-btn ui-shadow ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">返回</a>
+
+        <h1>基本情况</h1>
+    </div>
+    <div data-role="body">
+        <ul data-role="listview" id="listState1">
+                
+        </ul>
+    </div>
+</div>
+<div data-role="page" id="pageState2">
+    <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b" class="uui-bar-b"
+         data-tap-toggle="false">
+        <a href="#" data-rel="back" data-transition="slide"
+           class="ui-btn ui-shadow ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">返回</a>
+
+        <h1 id="title-state2">基本情况</h1>
+    </div>
+    <div data-role="body">
+        <ul data-role="listview" id="listState2">
+                
+        </ul>
+    </div>
+</div>
+<div data-role="page" id="pageResetPassword">
+    <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b" class="uui-bar-b"
+         data-tap-toggle="false">
+        <a href="#" data-rel="back" data-transition="slide"
+           class="ui-btn ui-shadow ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">返回</a>
+
+        <h1>修改密码</h1>
+    </div>
+    <div data-role="body">
+        <form id="formResetPassword">
+            <input type="text" id="oldPassword" placeholder="原始密码"/>
+            <input type="text" id="newPassword" placeholder="新密码"/>
+            <input type="text" id="retryPassword" placeholder="重复新密码"/>
+        </form>
+        <input type="button" id="buttonResetPassword" value="确认更改"/>
+    </div>
+</div>
+<div data-role="page" id="pageAbout">
+    <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b" class="uui-bar-b"
+         data-tap-toggle="false">
+        <a href="#" data-rel="back" data-transition="slide"
+           class="ui-btn ui-shadow ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">返回</a>
+
+        <h1>修改密码</h1>
+    </div>
+    <div data-role="body">
+        <h1 style="font-style: italic">
+            <span style="color:#000">King</span><span style="color:#C8515D">Rocket</span>
+        </h1>
+
+        <p style="padding:1em; background-color: #98C851; margin-right:2em;  color:#fff"
+           class="ui-corner-br ui-corner-tr">
+            公司总部位于北京，在西安设有分公司以及全国各大城市均有办事处或服务中心。公司拥有多家合作伙伴，基本形成覆盖全国的营销和技术服务网络。
+        </p>
+
+        <p style="padding:1em; background-color: #51C8BC; margin-left:1em; color:#fff"
+           class="ui-corner-bl ui-corner-tl">
+            北京金舟神创科技发展有限公司成立于2005年，是目前铁路建设试验信息化的绝对领导者。《铁路试验信息管理系统》于2005年通过铁道部科技司的专家评审，是唯一一家通过部级评审的软件企业。
+        </p>
+
+        <p>
+            <a href="http://www.kingrocket.com" class="ui-btn" data-transition="slide">打开官网</a>
+        </p>
+    </div>
+</div>
+<div data-role="page" id="pageTinyTip">
+    <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b" class="uui-bar-b"
+         data-tap-toggle="false">
+        <a href="#" data-rel="back" data-transition="slide"
+           class="ui-btn ui-shadow ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">返回</a>
+
+        <h1>温馨提示</h1>
+
+        <div class="header-tools">
+            <input data-type="search" name="filterTinyTip" id="filterTinyTip" value="" placeholder="查找"/>
+        </div>
+    </div>
+    <div data-role="body">
+        <ul data-role="listview" id="listTinyTip" data-filter="true"
+            data-input="#filterTinyTip">
+            <li class="ui-btn" id="buttonLoadTinyTip">
+                加载更多
+            </li>
+        </ul>
+    </div>
+</div>
+<div data-role="page" id="pageStadium">
+    <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b" class="uui-bar-b"
+         data-tap-toggle="false">
+        <a href="#" data-rel="back" data-transition="slide"
+           class="ui-btn ui-shadow ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">返回</a>
+
+        <h1>今日待做试验&nbsp;<i bind="total-stadium"></i></h1>
+    </div>
+    <div data-role="body">
+        <div data-role="collapsible-set" data-inset="false" id="listStadium">
+        </div>
+    </div>
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+        <div data-role="navbar">
+            <ul class="footernavbar">
+                <li>
+                    <a href="#" data-icon="bullets" class="ui-state-persist ui-btn-active">
+                        <!--<div class="ui-count" bind="total-stadium">0</div>-->
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:skip('#pageRequest')" data-icon="edit" data-transition="none">
+                        <!--<div class="ui-count" bind="total-request">0</div>-->
+                    </a>
+                </li>
+                <li>
+                    <a data-icon="alert" href="javascript:skip('#pageInvalid')" data-transition="none">
+                        <!--<div class="ui-count" bind="total-invalid">0</div>-->
+                    </a>
+                </li>
+                <li>
+                    <a data-icon="clock" href="javascript:skip('#pageOverTime')" data-transition="none">
+                        <!--<div class="ui-count" bind="total-overtime">0</div>-->
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /grid-c -->
+</div>
+<div data-role="page" id="pageRequest">
+    <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b" class="uui-bar-b"
+         data-tap-toggle="false">
+        <a href="#" data-rel="back" data-transition="slide"
+           class="ui-btn ui-shadow ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">返回</a>
+
+        <h1>待审批用户申请&nbsp;<i bind="total-request"></i></h1>
+    </div>
+    <div data-role="body">
+        <div data-role="collapsible-set" data-inset="false" id="listRequest">
+        </div>
+    </div>
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+        <div data-role="navbar">
+            <ul class="footernavbar">
+                <li>
+                    <a href="#" data-icon="bullets" class="ui-state-persist ui-btn-active">
+                        <!--<div class="ui-count" bind="total-stadium">0</div>-->
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-icon="edit" class="ui-state-persist ui-btn-active">
+                        <!--<div class="ui-count" bind="total-request">33</div>-->
+                    </a>
+                </li>
+                <li>
+                    <a data-icon="alert" href="javascript:skip('#pageInvalid')" data-transition="none">
+                        <!--<div class="ui-count" data-icon="grid" bind="total-invalid">0</div>-->
+                    </a>
+                </li>
+                <li>
+                    <a data-icon="clock" href="javascript:skip('#pageOverTime')" data-transition="none">
+                        <!--<div class="ui-count" bind="total-overtime">0</div>-->
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /grid-c -->
+</div>
+<div data-role="page" id="pageInvalid">
+    <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b" class="uui-bar-b"
+         data-tap-toggle="false">
+        <a href="#" data-rel="back" data-transition="slide"
+           class="ui-btn ui-shadow ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">返回</a>
+
+        <h1>待处理不合格&nbsp;<i bind="total-invalid"></i></h1>
+    </div>
+    <div data-role="body">
+        <div data-role="collapsible-set" data-inset="false" id="listInvalid">
+        </div>
+    </div>
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+        <div data-role="navbar">
+            <ul class="footernavbar">
+                <li>
+                    <a href="javascript:skip('#pageStadium')" ui-icon="bullets" data-transition="none">
+                        <!--<div class="ui-count" bind="total-stadium">0</div>-->
+                    </a>
+                </li>
+                <li>
+                    <a data-icon="edit" href="javascript:skip('#pageRequest')" data-transition="none">
+                        <!--<div class="ui-count" bind="total-request">33</div>-->
+                    </a>
+                </li>
+                <li>
+                    <a data-icon="alert" href="#" data-transition="none" class="ui-state-persist ui-btn-active">
+                        <!--<div class="ui-count" >0</div>-->
+                    </a>
+                </li>
+                <li>
+                    <a data-icon="clock" href="javascript:skip('#pageOverTime')" data-transition="none">
+                        <!--<div class="ui-count" bind="total-overtime">0</div>-->
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div data-role="page" id="pageOverTime">
+    <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b" class="uui-bar-b"
+         data-tap-toggle="false">
+        <a href="#" data-rel="back" data-transition="slide"
+           class="ui-btn ui-shadow ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">返回</a>
+
+        <h1>待审批过期试验&nbsp;<i bind="total-overtime"></i></h1>
+
+    </div>
+    <div data-role="body">
+            
+        <div data-role="collapsible-set" data-inset="false" id="listOverTime">
+        </div>
+    </div>
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+        <div data-role="navbar">
+            <ul class="footernavbar">
+                <li>
+                    <a href="javascript:skip('#pageStadium')" ui-icon="bullets" data-transition="none">
+                        <!--<div class="ui-count" bind="total-stadium">0</div>-->
+                    </a>
+                </li>
+                <li>
+                    <a data-icon="edit" href="javascript:skip('#pageRequest')" data-transition="none">
+                        <!--<div class="ui-count" bind="total-request">33</div>-->
+                    </a>
+                </li>
+                <li>
+                    <a data-icon="alert" href="javascript:skip('#pageInvalid')" data-transition="none">
+                        <!--<div class="ui-count" bind="total-invalid">0</div>-->
+                    </a>
+                </li>
+                <li>
+                    <a data-icon="clock" href="#" class="ui-state-persist ui-btn-active">
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div data-role="page" id="pageTestRoom">
+    <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="b" class="uui-bar-b"
+         data-tap-toggle="false">
+        <a href="#" data-rel="back" data-transition="slide"
+           class="ui-btn ui-shadow ui-corner-all ui-icon-arrow-l ui-btn-icon-notext">返回</a>
+
+        <h1>试验室信息</h1>
+    </div>
+    <div data-role="body">
+        <table id="table-information" width="100%">
+            <tbody>
+            <tr>
+                <td class="label">单位名称</td>
+                <td class="field" id="bind-test-company"></td>
+            </tr>
+            <tr>
+                <td class="label">中心试验室名称</td>
+                <td class="field" id="bind-test-test">
+                </td>
+            </tr>
+            <tr>
+                <td class="label">母体试验室名称</td>
+                <td class="field" id="bind-test-master"></td>
+            </tr>
+            <tr>
+                <td class="label">试验室通讯地址</td>
+                <td class="field" id="bind-test-address"></td>
+            </tr>
+            <tr>
+                <td class="label">总工程师</td>
+                <td class="field" id="bind-test-ename"></td>
+            </tr>
+            <tr>
+                <td class="label">联系电话</td>
+                <td class="field" id="bind-test-tel"></td>
+            </tr>
+            <tr>
+                <td class="label">主任姓名</td>
+                <td class="field" id="bind-test-mname"></td>
+            </tr>
+            <tr>
+
+                <td class="label">联系电话</td>
+                <td class="field" id="bind-test-mtel"></td>
+            </tr>
+            <tr>
+                <td class="label">负责人</td>
+                <td class="field" id="bind-test-bname"></td>
+            </tr>
+            <tr>
+
+                <td class="label">联系电话</td>
+                <td class="field" id="bind-test-btel"></td>
+            </tr>
+            <tr>
+                <td class="label">邮编</td>
+                <td class="field" id="bind-test-code"></td>
+
+            </tr>
+            <tr>
+                <td class="label">传真</td>
+                <td class="field" id="bind-test-fax"></td>
+            </tr>
+            <tr>
+                <td class="label">试验室面积(㎡)</td>
+                <td class="field" id="bind-test-tsize"></td>
+
+            </tr>
+            <tr>
+                <td class="label">标准养护室面积(㎡)</td>
+                <td class="field" id="bind-test-ssize"></td>
+            </tr>
+            <tr>
+                <td class="label">主要试验检测项目</td>
+                <td class="field" id="bind-test-items"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div id="templates" style="display: none">
+    <div id="message">
+        <li id="{#ext}_tip_{#id}">
+            <div class="ui-list">
+                <div class="ui-list-header">
+                    <div class="{#class_type}">
+                        {#location}
+                    </div>
+                </div>
+                <div class="ui-list-content">
+                    {#content}
+                </div>
+                <div class="ui-list-foot">
+                    {#time}
+                </div>
+                <a id="{#ext}_a_{#id}"
+                   ext="{#ext}"
+                   oid="{#id}"
+                   cid="{#ext}_tip_{#id}"
+                   class="ui-btn ui-shadow ui-corner-all ui-icon-star ui-btn-icon-notext {#class_store}">收藏
+                </a>
+            </div>
+        </li>
+    </div>
+    <div id="report">
+        <ul data-role="listview" data-inset="true">
+            <li>
+                <a href="#pDetail" class="{#class}" data-transition="slide">
+                    <h3>#title #start 至 #end</h3>
+
+                    <p>#description</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div id="memberOfSegment">
+        <div data-role="collapsible">
+            <h2>
+                <span>{#segmentName} {#companyName}</span>
+                <span class="ui-li-count">{#total} 人</span>
+            </h2>
+            <ul data-role="listview" data-inset="true" class="ui-corner-none" data-theme="a">
+                {#contentOfTestRoom}
+            </ul>
+        </div>
+    </div>
+    <div id="memberOfTestRoom">
+        <li data-role="list-divider" data-theme="b">
+            <span>{#name}</span>
+            <span class="ui-li-count">{#total} 人</span>
+        </li>
+        {#contentOfEveryone}
+    </div>
+    <div id="memberEveryone">
+        <li style="vertical-align: middle" data-filtertext="{#segmentName} {#testRoomName} {#name} {#phone}">
+            <span data-inline="true" class="list-label">
+                <p>
+                    <strong>{#name}</strong>
+                    <br/>
+                    <span>{#role}</span>
+                    <br/>
+                    <span>电话 {#phone}</span>
+                </p>
+            </span>
+            <button data-inline="true"
+                    class="ui-btn-right ui-icon-phone ui-btn ui-shadow ui-corner-all ui-btn-icon-notext"
+                    onclick="javascript:call('{#phone}')">
+            </button>
+        </li>
+    </div>
+    <div id="deviceOfSegment">
+        <div data-role="collapsible">
+            <h2>
+                <span>{#segmentName} {#companyName}</span>
+                <span class="ui-li-count">{#total} 台</span>
+            </h2>
+            <ul data-role="listview" class="ui-corner-none" data-theme="a" data-split-theme="b" data-inset="true">
+                {#contentOfTestRoom}
+            </ul>
+        </div>
+    </div>
+    <div id="deviceOfTestRoom">
+        <li data-role="list-divider" data-theme="b">
+            <span>{#name}</span>
+            <span class="ui-li-count">{#total} 台</span>
+        </li>
+        {#contentOfEveryone}
+    </div>
+    <div id="deviceEveryone">
+        <li style="vertical-align: middle">
+            <span>{#name}</span>
+            <span class="ui-li-count">{#total} 台</span>
+        </li>
+    </div>
+    <div id="totalOfSegment">
+        <div data-role="collapsible">
+            <h2>
+                {#segmentName} {#companyName}
+                <span class="ui-li-count">{#total}</span>
+            </h2>
+
+            <ul data-role="listview">
+                {#contentOfTestRoom}
+            </ul>
+        </div>
+    </div>
+    <div id="totalOfTestRoom">
+        <li>
+            <span>{#name}</span>
+            <span class="ui-li-count">{#total}</span>
+        </li>
+    </div>
+    <div id="tip">
+        <li id="{#ext}_tip_{#id}">
+            <div class="ui-list">
+                <div class="ui-list-content">
+                    {#content}
+                </div>
+                <div class="ui-list-foot">
+                    <span>{#time}</span>
+                </div>
+                <a id="{#ext}_a_{#id}"
+                   ext="{#ext}"
+                   oid="{#id}"
+                   cid="{#ext}_tip_{#id}"
+                   class="ui-btn ui-shadow ui-corner-all ui-icon-star ui-btn-icon-notext {#class_store}">收藏
+                </a>
+            </div>
+        </li>
+    </div>
+    <div id="empty">
+        <div class="empty">
+            <span>您还没有收藏过</span>
+            <a class="ui-btn-b ui-mini" data-rel="back" href="#" data-role="button">返回</a>
+        </div>
+    </div>
+    <div id="error">
+        <div class="error">
+            <span>应用程序发生了异常</span>
+
+            <div data-role="controlgroup" data-type="horizontal">
+                <a class="ui-btn-b ui-mini" data-rel="back" href="#" data-role="button">返回</a>
+                <a class="ui-btn-b ui-mini" data-rel="bck" href="#" data-role="button">重试</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript">
+    if (!config.isDebug) {
+        document.write("<script type='text/javascript' src='cordova.js'><\/script>");
+    }
+</script>
+<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="js/jq-cal.js"></script>
+<script type="text/javascript" src="js/jquery.mobile-1.4.4.min.js"></script>
+<!--<script type="text/javascript" src="js/mobiscroll.custom-2.14.0.min.js"></script>-->
+<!-- Must use T.js after jquery.js and before index.js-->
+<script type="text/javascript" src="js/T.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript">
+    app.initialize();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+</head>
+<body>
+
+<em>
+    <%=
+        JSON.stringify(result)
+    %>
+</em>
+
+<h1><%= title %></h1>
+
+<form method="post">
+    <input type="text" placeholder="Line ID" id="lineID" name="lineID"/>
+    <br/>
+    <input type="text" placeholder="category" id="category" name="category"/>
+    <br/>
+    <input type="text" placeholder="Line Tag" id="lineTag" name="lineTag"/>
+    <br/>
+    <input type="text" placeholder="TestRoom Code" id="testRoom" name="testRoom"/>
+    <br/>
+    <textarea placeholder="Message" id="message" name="message" rows="5" cols="80"></textarea>
+    <br/>
+    <input type="submit" value="Submit"/>
+</form>
+</body>
+</html>

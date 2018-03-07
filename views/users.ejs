@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <link rel='stylesheet' href="/bootstrap/dist/css/bootstrap.css"/>
+    <script src="/angular/angular.js"></script>
+    <script src="/jquery/dist/jquery.js"></script>
+    <script src="/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/js/controller.js"></script>
+    <script src="/underscore/underscore.js"></script>
+
+</head>
+<body>
+
+<h1><%= title %></h1>
+
+<div class="row" ng-controller="LineListCtrl">
+
+    <div class="col-md-2">
+        <ul class="nav nav-pills nav-stacked" role="tablist">
+            <li ng-repeat="l in lines" class="{{current_line_id == l.id?'active':''}}">
+                <a href="#" ng-click="switch(l.id)">{{l.lineName}}</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <input type="text" class="form-control" ng-model="query" placeholder="按照任意字段查询"/>
+        <hr/>
+        <ul class="nav nav-pills nav-stacked" role="tablist">
+            <li ng-repeat="user in users | filter:query" class="{{current_user.id === user.id ? 'active':''}}">
+                <a ng-click="edit(user.id)">
+                    <strong>{{user.userName}}</strong>
+
+                    <div>
+                        <i>{{user.segmentName}} {{user.testRoomName}}</i>
+                    </div>
+                    <div ng-switch on="user.roleName">
+                        <div>{{user.phone}}</div>
+                        <div ng-switch-when="YZ">业主</div>
+                        <div ng-switch-when="BHZJL">拌合站监理</div>
+                        <div ng-switch-when="ADMIN">管理员</div>
+                        <div ng-switch-when="SGGQ">施工工区</div>
+                        <div ng-switch-when="BHZYZ">拌合站业主</div>
+                        <div ng-switch-when="JL">监理</div>
+                        <div ng-switch-when="SGZX">施工中心</div>
+                        <div ng-switch-when="GGZX">工管中心</div>
+                        <div ng-switch-when="BHZZZ">拌合站站长</div>
+                        <div ng-switch-when="SYY">试验员</div>
+                        <div ng-switch-when="SYSZY">试验室主任</div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <div class="well" style="position:fixed; ">
+            <h2>{{current_user.userName}}</h2>
+
+            <div class="form-group">
+                <label for="phone">手机</label>
+                <input type="text" name="phone" class="form-control" ng-model="current_user.phone">
+            </div>
+
+            <div class="form-group">
+                <label>角色</label>
+                <br/>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="current_user.roleName" ng-true-value="YZ"
+                           value="YZ">业主</input>
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="current_user.roleName" ng-true-value="BHZJL"
+                           value="BHZJL">拌合站监理</input>
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="current_user.roleName" ng-true-value="ADMIN"
+                           value="ADMIN">管理员</input>
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="current_user.roleName" ng-true-value="SGGQ"
+                           value="SGGQ">施工工区</input>
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="current_user.roleName" ng-true-value="BHZYZ"
+                           value="BHZYZ">拌合站业主</input>
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="current_user.roleName" ng-true-value="JL"
+                           value="JL">监理</input>
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="current_user.roleName" ng-true-value="SGZX"
+                           value="SGZX">施工中心</input>
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="current_user.roleName" ng-true-value="GGZX"
+                           value="GGZX">工管中心</input>
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="current_user.roleName" ng-true-value="BHZZZ"
+                           value="BHZZZ">拌合站站长</input>
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="current_user.roleName" ng-true-value="SYY"
+                           value="SYY">试验员</input>
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="current_user.roleName" ng-true-value="SYSZY"
+                           value="SYSZY">试验室主任</input>
+                </label>
+            </div>
+            <input type="button" class="btn btn-success {{processing?'disabled':''}}" value="保存"
+                   ng-click="save()"/>
+        </div>
+    </div>
+</div>
+</body>
+</html>

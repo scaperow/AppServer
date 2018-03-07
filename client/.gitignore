@@ -1,0 +1,7 @@
+ant-build
+bin
+.idea
+.idea/
+platforms/ios/LISN.xcodeproj/project.xcworkspace/xcuserdata/thomas.xcuserdatad
+platforms/ios/LISN.xcodeproj/xcuserdata
+LISN.xccheckout
